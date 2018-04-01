@@ -1,4 +1,136 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>linux | Freedome</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">Freedome</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><article><div class="container"><h1 class="label-title">linux</h1><div class="post"><!-- show all categories and tags--><div class="post-archive"><!--Use lodash to classify posts. See https://lodash.com/docs#groupBy--><h2>2017</h2><ul class="listing"><li><span class="date">2017/05/29</span><a href="/2017/05/29/linux-linklib/" title="linux库连接、加载规则">linux库连接、加载规则</a></li></ul><h2>2016</h2><ul class="listing"><li><span class="date">2016/06/04</span><a href="/2016/06/04/samba-mid-fileserver/" title="samba配置备忘">samba配置备忘</a></li></ul><h2>2015</h2><ul class="listing"><li><span class="date">2015/10/11</span><a href="/2015/10/11/fedora-tips/" title="centos 系常用命令">centos 系常用命令</a></li></ul></div></div></div></article><div class="container page-navigator-wrapper"></div><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2018 <a href="/" rel="nofollow">coolzyz</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
-    $(".fancybox").fancybox();
-});
-</script></body></html>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux | Freedome</title>
+  <meta name="author" content="coolzyz">
+  
+  
+  
+  <meta property="og:site_name" content="Freedome"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta property="og:image" content=""/>
+  
+   <link rel="apple-touch-icon" href="/icon.png" />
+   <link rel="shortcut icon" href="/favicon.png" >
+   <link rel="alternate" href="http://xxx.xx/atom.xml" title="Freedome" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <div id="content" class="inner">
+    <aside id="sidebar" class="alignleft">
+      <div class="navigationBar">
+        <a href="/">Freedome</a>
+      </div>
+    	
+  <nav class="widget" id="menu">
+	<ul>
+    
+      <li class="cell"><a class="next" href="/">Home</a><li>
+    
+      <li class="cell"><a class="next" href="/archives/">Archives</a><li>
+    
+      <li class="cell"><a class="next" href="/about/">About</a><li>
+    
+      <li class="cell"><a class="next" href="/atom.xml">Subscribe</a><li>
+    
+    </ul>
+</nav>
+
+  <div class="widget weibo">
+<iframe width="100%" height="100" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=110&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=0&isWeibo=0&isFans=0&uid=&verifier=78e1ee4d&colors=ffffff,ffffff,999,000,ecfbfd&dpc=1"></iframe>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/c/" style="font-size: 15px;">c++</a> <a href="/tags/core/" style="font-size: 10px;">core</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/link-prority/" style="font-size: 10px;">link prority</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/samba/" style="font-size: 10px;">samba</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/staticlib-dynamiclib/" style="font-size: 10px;">staticlib dynamiclib</a> <a href="/tags/std-sort/" style="font-size: 10px;">std::sort</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/user/" style="font-size: 10px;">user</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/权限/" style="font-size: 10px;">权限</a> <a href="/tags/配置/" style="font-size: 10px;">配置</a>
+  </div>
+</div>
+
+
+    	<footer id="footer" class="inner"><div class="copyright">
+  
+  &copy; 2018 coolzyz
+  
+</div>
+
+
+
+</footer>
+    </aside>
+    
+    
+    <div id="hidden-navigationBar" class="navigationBar">
+      <a href="/">Freedome</a>
+    </div>
+    <div id="main-col" class="alignright">
+    <div id="wrapper">
+      
+<h2 class="archive-title tag">linux</h2>
+
+
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            
+              <h1 class="title"><a href="/2017/05/29/linux-linklib/">linux库连接、加载规则</a></h1>
+            
+            <time datetime="2017-05-29T13:21:05.000Z"><a href="/2017/05/29/linux-linklib/">2017-05-29</a></time>
+          </header>
+        </div>
+      </article>
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            
+              <h1 class="title"><a href="/2016/06/04/samba-mid-fileserver/">samba配置备忘</a></h1>
+            
+            <time datetime="2016-06-04T05:45:40.000Z"><a href="/2016/06/04/samba-mid-fileserver/">2016-06-04</a></time>
+          </header>
+        </div>
+      </article>
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            
+              <h1 class="title"><a href="/2015/10/11/fedora-tips/">centos 系常用命令</a></h1>
+            
+            <time datetime="2015-10-10T22:16:29.000Z"><a href="/2015/10/11/fedora-tips/">2015-10-11</a></time>
+          </header>
+        </div>
+      </article>
+    
+  </div>
+</div>
+    </div>
+    <div class="tabbar" onload="divideTabBar()">
+	
+      <div class="tabbaritem"><a class="next" href="/">Home</a></div>
+    
+      <div class="tabbaritem"><a class="next" href="/archives/">Archives</a></div>
+    
+      <div class="tabbaritem"><a class="next" href="/about/">About</a></div>
+    
+      <div class="tabbaritem"><a class="next" href="/atom.xml">Subscribe</a></div>
+    
+</div>
+
+
+  </div>
+</body>
+</html>
