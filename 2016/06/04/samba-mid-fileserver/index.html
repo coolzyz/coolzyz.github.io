@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,samba,windows,mount,permission,user," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="samba文件服务器安装配置，实现windows、linux文件共享">
+<meta name="keywords" content="linux,samba,windows,mount,permission,user">
+<meta property="og:type" content="article">
+<meta property="og:title" content="samba配置备忘">
+<meta property="og:url" content="http://yoursite.com/2016/06/04/samba-mid-fileserver/index.html">
+<meta property="og:site_name" content="Freedome">
+<meta property="og:description" content="samba文件服务器安装配置，实现windows、linux文件共享">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-06-06T15:02:00.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="samba配置备忘">
+<meta name="twitter:description" content="samba文件服务器安装配置，实现windows、linux文件共享">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/04/samba-mid-fileserver/"/>
+
+
+
+
+
+  <title>samba配置备忘 | Freedome</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Freedome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/04/samba-mid-fileserver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coolzyz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Freedome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">samba配置备忘</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-04T14:45:40+09:00">
+                2016-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>samba文件服务器安装配置，实现windows、linux文件共享</p>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code>yum install samba
+</code></pre><h2 id="创建samba共享目录并修改权限"><a href="#创建samba共享目录并修改权限" class="headerlink" title="创建samba共享目录并修改权限"></a>创建samba共享目录并修改权限</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="string">/smbshare</span></span><br><span class="line">chmod 770 <span class="string">/smbshare</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置samba账号密码，testuser为已经存在的用户"><a href="#设置samba账号密码，testuser为已经存在的用户" class="headerlink" title="设置samba账号密码，testuser为已经存在的用户"></a>设置samba账号密码，testuser为已经存在的用户</h2><pre><code>smbpasswd -a testuser
+</code></pre><h2 id="创建用户组，将新用户加入用户组"><a href="#创建用户组，将新用户加入用户组" class="headerlink" title="创建用户组，将新用户加入用户组"></a>创建用户组，将新用户加入用户组</h2><pre><code>groupadd smbusers
+chown :smbusers /smbshare
+usermod -G smbusers testuser
+</code></pre><h2 id="编辑-etc-samba-smb-conf"><a href="#编辑-etc-samba-smb-conf" class="headerlink" title="编辑/etc/samba/smb.conf"></a>编辑/etc/samba/smb.conf</h2><ul>
+<li>视需要指定日志文件路径、大小</li>
+<li>Share 区加入如下配置：<blockquote>
+<p>[Public]<br>  comment = Home Directories<br>  path = /smbshare<br>  valid users = testuser<br>  browseable = yes<br>  writable = yes<br>  read only = no<br>  create mask = 0755</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="检验配置语法"><a href="#检验配置语法" class="headerlink" title="检验配置语法"></a>检验配置语法</h2><pre><code>testparam
+</code></pre><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><pre><code>service smb restart
+service nmb restart
+</code></pre><p>可用service smb status查看服务状态</p>
+<h2 id="Window连接"><a href="#Window连接" class="headerlink" title="Window连接"></a>Window连接</h2><p>此时windows资源管理器浏览到网络标签，可以发现所有使用smb协议，并且工作组相同的机器，双击输入密码即可</p>
+<p>此时如果没有发现共享机器需要检查：</p>
+<ul>
+<li>关闭防火墙</li>
+<li>工作组相同</li>
+<li>windows启用了局域网发现功能。</li>
+</ul>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">控制面板<span class="function">-&gt;</span>网络共享中心<span class="function">-&gt;</span>更改高级共享设置<span class="function">-&gt;</span>开启共享（Turn <span class="literal">on</span> network discovery <span class="keyword">for</span> whichever network you<span class="string">'re connected to (i.e. home, public, domain)</span></span><br></pre></td></tr></table></figure>
+<h2 id="Linux挂载"><a href="#Linux挂载" class="headerlink" title="Linux挂载"></a>Linux挂载</h2><ul>
+<li><p>发现共享中的机器、目录</p>
+<p>  smbclient -L 192.168.1.103 -U testuser    </p>
+</li>
+<li><p>root权限挂载</p>
+<p>  mount -t cifs //192.168.1.103/Public mount_point -o username=testuser,uid=UID,gid=GID</p>
+<p>  其中uid，gid为本机需要访问共享目录的用户id和组id。（root挂载，不指定uid，gid，mount_point目录将为root所有）</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/samba/" rel="tag"># samba</a>
+          
+            <a href="/tags/windows/" rel="tag"># windows</a>
+          
+            <a href="/tags/mount/" rel="tag"># mount</a>
+          
+            <a href="/tags/permission/" rel="tag"># permission</a>
+          
+            <a href="/tags/user/" rel="tag"># user</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/27/redis-ssh-root/" rel="next" title="Redis 配置不当导致root权限泄露">
+                <i class="fa fa-chevron-left"></i> Redis 配置不当导致root权限泄露
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/29/linux-linklib/" rel="prev" title="linux库连接、加载规则">
+                linux库连接、加载规则 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coolzyz</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建samba共享目录并修改权限"><span class="nav-number">2.</span> <span class="nav-text">创建samba共享目录并修改权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置samba账号密码，testuser为已经存在的用户"><span class="nav-number">3.</span> <span class="nav-text">设置samba账号密码，testuser为已经存在的用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户组，将新用户加入用户组"><span class="nav-number">4.</span> <span class="nav-text">创建用户组，将新用户加入用户组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑-etc-samba-smb-conf"><span class="nav-number">5.</span> <span class="nav-text">编辑/etc/samba/smb.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检验配置语法"><span class="nav-number">6.</span> <span class="nav-text">检验配置语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">7.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window连接"><span class="nav-number">8.</span> <span class="nav-text">Window连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux挂载"><span class="nav-number">9.</span> <span class="nav-text">Linux挂载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coolzyz</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
