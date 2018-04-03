@@ -229,6 +229,240 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/linux-command-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coolzyz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Freedome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/03/linux-command-tips/" itemprop="url">linux命令备忘</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-03T23:09:20+09:00">
+                2018-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><ul>
+<li>改变目录显示颜色<blockquote>
+<p>  cp /etc/COLORS ~/.dir_colors修改dir_colors里面的DIR后面的参数</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="date命令"><a href="#date命令" class="headerlink" title="date命令"></a>date命令</h3><ul>
+<li><p>将指定时间戳转换对应日期</p>
+<blockquote>
+<p>  date -d@149845400</p>
+</blockquote>
+</li>
+<li><p>将指定时间转换成时间戳</p>
+<blockquote>
+<p>date “+%s” -d”20170810 03:20”</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="make"><a href="#make" class="headerlink" title="make"></a>make</h3><ul>
+<li>错误日志屏幕显示同时重定向到文件<blockquote>
+<p>make -j8 2&gt;&amp;1 &gt;/dev/null | tee error</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h3><ul>
+<li>解压到指定目录<blockquote>
+<p>unzip xx.zip -d targetdir</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><ul>
+<li><p>动态日志过滤，开启line-buffered</p>
+<blockquote>
+<p>tail -f /mydir/myfile | grep –line-buffered “searchterm” </p>
+</blockquote>
+</li>
+<li><p>匹配hello的行后面/前面/前后2行</p>
+<blockquote>
+<p>grep -A2/B2/C2 -i “hello” logfile</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
+<li><p>查找home除dut目录下的txt 和rmvb文件</p>
+<blockquote>
+<p>find /home -path /home/dut/ -prune -name “<em>.txt” -o -name “</em>.rmvb”;</p>
+</blockquote>
+</li>
+<li><p>如果要忽略两个以上的路径如何处理？</p>
+<blockquote>
+<p>find /home/carryf ( -path “/home/carryf/astetc” -o -path “/home/carryf/etc” ) -prune -o -type f  -print<br>注意( 和) 前后都有空格。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><blockquote>
+<p> a=(“1” “2” “3”); for i in ${a[@]};do echo $i;done</p>
+</blockquote>
+<h3 id="并、交、差"><a href="#并、交、差" class="headerlink" title="并、交、差"></a>并、交、差</h3><ul>
+<li><p>并</p>
+<blockquote>
+<p>cat a b | sort | uniq &gt; c   # c is a union b</p>
+</blockquote>
+</li>
+<li><p>交</p>
+<blockquote>
+<p>cat a b | sort | uniq -d &gt; c   # c is a intersect b</p>
+</blockquote>
+</li>
+<li><p>差</p>
+<blockquote>
+<p>cat a b b | sort | uniq -u &gt; c   # c is set difference a - b</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><ul>
+<li>将命令的输出作为普通的shell命令执行</li>
+</ul>
+<h3 id="ctrl-r-s-搜索命令行历史"><a href="#ctrl-r-s-搜索命令行历史" class="headerlink" title="ctrl+r/s 搜索命令行历史"></a>ctrl+r/s 搜索命令行历史</h3><ul>
+<li>ctrl+r 反向搜索</li>
+<li>ctrl+s 前向搜索，回车执行搜索到的命令<blockquote>
+<p>ctrl+s 可能和xon/xoff冲突，可以通过stty -ixon禁用</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="at"><a href="#at" class="headerlink" title="at"></a>at</h3><ul>
+<li>contab 周期性定时任务，at一次性任务</li>
+<li>at now + 1 hour，回车输入命令，ctrl+d完成</li>
+<li>atq查看工作序列</li>
+<li>atrm 删除工作序列</li>
+</ul>
+<h3 id="按功能搜索命令"><a href="#按功能搜索命令" class="headerlink" title="按功能搜索命令"></a>按功能搜索命令</h3><ul>
+<li>apropos + 想要干的事情<blockquote>
+<p>e.g. apropos build filesystem</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="管理系统版本的替代系统"><a href="#管理系统版本的替代系统" class="headerlink" title="管理系统版本的替代系统"></a>管理系统版本的替代系统</h3><ul>
+<li>路径 /etc/alternatives 符号链接到该目录</li>
+<li><p>debian:</p>
+<blockquote>
+<p>update-alternatives</p>
+</blockquote>
+</li>
+<li><p>centos:</p>
+<blockquote>
+<p>alternatives</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="彻底删除文件"><a href="#彻底删除文件" class="headerlink" title="彻底删除文件"></a>彻底删除文件</h3><ul>
+<li>shred: rm命令的升级版，使用shred删除文件后，数据块会被随机复写</li>
+</ul>
+<h3 id="执行完命令后返回当前目录"><a href="#执行完命令后返回当前目录" class="headerlink" title="执行完命令后返回当前目录"></a>执行完命令后返回当前目录</h3><ul>
+<li>子进程方式: <code>(cd /etc/ &amp;&amp; ls -l)</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/mysql-batch-insert/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1406,7 +1640,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1419,7 +1653,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
