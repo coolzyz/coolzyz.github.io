@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,link prority,staticlib dynamiclib," />
+  <meta name="keywords" content="mysql,批量插入,性能优化," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="同一目录里即有静态库又有动态库，会优先动态库连接">
-<meta name="keywords" content="linux,link prority,staticlib dynamiclib">
+<meta name="description" content="问题 目前插入数据是一条记录执行一次Insert语句，当需要批量插入数据时候，每条数据都要经过Mysql引擎的分析、优化，性能低下  mysql提供了批量插入数据的接口，语句型如： 1Insert into tablename (&apos;A&apos;, &apos;B&apos;, &apos;C&apos;) values (&apos;a&apos;, &apos;b&apos;, &apos;c&apos;), (&apos;d&apos;, &apos;e&apos;, &apos;f&apos;);   解决 zMysqlHandle增加批量插入接口 1zM">
+<meta name="keywords" content="mysql,批量插入,性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux库连接、加载规则">
-<meta property="og:url" content="http://yoursite.com/2017/05/29/linux-linklib/index.html">
+<meta property="og:title" content="mysql_batch_insert">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/mysql-batch-insert/index.html">
 <meta property="og:site_name" content="Freedome">
-<meta property="og:description" content="同一目录里即有静态库又有动态库，会优先动态库连接">
+<meta property="og:description" content="问题 目前插入数据是一条记录执行一次Insert语句，当需要批量插入数据时候，每条数据都要经过Mysql引擎的分析、优化，性能低下  mysql提供了批量插入数据的接口，语句型如： 1Insert into tablename (&apos;A&apos;, &apos;B&apos;, &apos;C&apos;) values (&apos;a&apos;, &apos;b&apos;, &apos;c&apos;), (&apos;d&apos;, &apos;e&apos;, &apos;f&apos;);   解决 zMysqlHandle增加批量插入接口 1zM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-03T13:58:59.083Z">
+<meta property="og:updated_time" content="2018-04-03T13:59:00.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux库连接、加载规则">
-<meta name="twitter:description" content="同一目录里即有静态库又有动态库，会优先动态库连接">
+<meta name="twitter:title" content="mysql_batch_insert">
+<meta name="twitter:description" content="问题 目前插入数据是一条记录执行一次Insert语句，当需要批量插入数据时候，每条数据都要经过Mysql引擎的分析、优化，性能低下  mysql提供了批量插入数据的接口，语句型如： 1Insert into tablename (&apos;A&apos;, &apos;B&apos;, &apos;C&apos;) values (&apos;a&apos;, &apos;b&apos;, &apos;c&apos;), (&apos;d&apos;, &apos;e&apos;, &apos;f&apos;);   解决 zMysqlHandle增加批量插入接口 1zM">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/29/linux-linklib/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/03/mysql-batch-insert/"/>
 
 
 
 
 
-  <title>linux库连接、加载规则 | Freedome</title>
+  <title>mysql_batch_insert | Freedome</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/29/linux-linklib/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/mysql-batch-insert/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="coolzyz">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux库连接、加载规则</h1>
+          <h1 class="post-title" itemprop="name headline">mysql_batch_insert</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-29T22:21:05+09:00">
-                2017-05-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-03T22:55:20+09:00">
+                2018-04-03
               </time>
             
 
@@ -300,13 +300,38 @@
       
 
       
-        <p>同一目录里即有静态库又有动态库，会优先动态库连接<br><a id="more"></a></p>
-<h2 id="优先动态库"><a href="#优先动态库" class="headerlink" title="优先动态库"></a>优先动态库</h2><p>同一目录里即有静态库又有动态库，会优先动态库连接，编译选项中加入-Wl可以修改这个默认规则：</p>
-<blockquote>
-<p>-Wl,Bstatic -lfoo -Wl,-Bdynamic -lbar 将对libfoo优先使用静态库,对libbar优先使用动态库</p>
-</blockquote>
-<p>PS:无论什么库，只要不是程序自己的代码编译器都将这些符号标记为U，然后程序运行期间通过环境变量LD_LIBRARY_PATH或者/etc/ld.conf来定位这些库，定位不到将出现undefined refercen to xxx</p>
-<p>即:编译期间使用-L/path/to/lib告诉编译器地址，程序启动通过环境变量来定位到这些库。</p>
+        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li><p>目前插入数据是一条记录执行一次Insert语句，当需要批量插入数据时候，每条数据都要经过Mysql引擎的分析、优化，性能低下</p>
+</li>
+<li><p>mysql提供了批量插入数据的接口，语句型如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Insert into tablename ('A', 'B', 'C') values ('a', 'b', 'c'), ('d', 'e', 'f');</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><ul>
+<li><p>zMysqlHandle增加批量插入接口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zMysqlHandle::exeInsert(FieldSet *, RecordSet &amp;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><ul>
+<li>400 机器人跑5min左右</li>
+</ul>
+<ul>
+<li>1条数据执行一次插入</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总时间：<span class="number">12763350</span> 微妙 总记录数：<span class="number">40360</span> 平均：<span class="number">316.238</span> 微妙</span><br></pre></td></tr></table></figure>
+<ul>
+<li>10 条数据执行一次插入</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总时间：<span class="number">3134734</span> 微妙 总记录数：<span class="number">37259</span> 平均：<span class="number">84.133</span> 微妙</span><br></pre></td></tr></table></figure>
+<p>性能提升明显</p>
+<p>P.S. mysql对每条sql语句长度有限制，每条语句插入多少数据需要程序确认</p>
+<ul>
+<li><strong>大量写数据库策略</strong>：<ul>
+<li>每帧写指定数量的记录，停机时写入剩余的记录</li>
+<li>采用mysql的批量写入接口，一条语句插入多条数据</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -324,11 +349,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
           
-            <a href="/tags/link-prority/" rel="tag"># link prority</a>
+            <a href="/tags/批量插入/" rel="tag"># 批量插入</a>
           
-            <a href="/tags/staticlib-dynamiclib/" rel="tag"># staticlib dynamiclib</a>
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -341,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/samba-mid-fileserver/" rel="next" title="samba配置备忘">
-                <i class="fa fa-chevron-left"></i> samba配置备忘
+              <a href="/2017/05/29/linux-linklib/" rel="next" title="linux库连接、加载规则">
+                <i class="fa fa-chevron-left"></i> linux库连接、加载规则
               </a>
             
           </div>
@@ -350,10 +375,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/03/mysql-batch-insert/" rel="prev" title="mysql_batch_insert">
-                mysql_batch_insert <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -476,7 +497,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#优先动态库"><span class="nav-number">1.</span> <span class="nav-text">优先动态库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能对比"><span class="nav-number">3.</span> <span class="nav-text">性能对比</span></a></li></ol></div>
             
 
           </div>
