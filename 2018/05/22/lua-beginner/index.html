@@ -82,14 +82,14 @@
 <meta name="description" content="lua关键字1and break do else elseif end false for function if in local nil not or repeat return then true until while  没有switch  lua 数组下标从1开始  取长度操作符，以nil为结束符号，下面例子中长度为012a=&amp;#123;&amp;#125;a[100] = 1   表达式 l">
 <meta name="keywords" content="lua 入门 读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LUA">
+<meta property="og:title" content="LUA 基础">
 <meta property="og:url" content="http://yoursite.com/2018/05/22/lua-beginner/index.html">
 <meta property="og:site_name" content="Freedome">
 <meta property="og:description" content="lua关键字1and break do else elseif end false for function if in local nil not or repeat return then true until while  没有switch  lua 数组下标从1开始  取长度操作符，以nil为结束符号，下面例子中长度为012a=&amp;#123;&amp;#125;a[100] = 1   表达式 l">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-22T09:51:03.228Z">
+<meta property="og:updated_time" content="2018-05-22T09:56:00.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LUA">
+<meta name="twitter:title" content="LUA 基础">
 <meta name="twitter:description" content="lua关键字1and break do else elseif end false for function if in local nil not or repeat return then true until while  没有switch  lua 数组下标从1开始  取长度操作符，以nil为结束符号，下面例子中长度为012a=&amp;#123;&amp;#125;a[100] = 1   表达式 l">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>LUA | Freedome</title>
+  <title>LUA 基础 | Freedome</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LUA</h1>
+          <h1 class="post-title" itemprop="name headline">LUA 基础</h1>
         
 
         <div class="post-meta">
@@ -368,7 +368,8 @@
 </li>
 <li><p><strong>newindex方法：用于table更新。如果对一个table中不存在的减值赋值将查找</strong>newindex方法，如果为__newindex是table，将更新此table，而不是原来的table</p>
 </li>
-<li>跟踪表的访问<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 表中唯一key</span></span><br><span class="line"><span class="keyword">local</span> index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> mt = &#123;&#125;</span><br><span class="line">mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span> <span class="params">(table, key)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"accessing"</span> .. key)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">table</span>[index][key];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">mt.<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">(table, key, value)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"updateing"</span>.. key .. <span class="string">"to"</span> .. value)</span><br><span class="line">    <span class="built_in">table</span>[index][key] = value</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span><span class="params">(tb)</span></span></span><br><span class="line">    <span class="keyword">local</span> proxy = &#123;&#125;</span><br><span class="line">    proxy[index] = tb;</span><br><span class="line">    <span class="built_in">setmetatable</span>(proxy, mt)</span><br><span class="line">    <span class="keyword">return</span> proxy;</span><br><span class="line"><span class="keyword">end</span>             </span><br><span class="line">          </span><br><span class="line">t = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">tk = track(t)</span><br><span class="line"><span class="built_in">print</span> (tk[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">tk[<span class="number">2</span>] = <span class="number">22</span></span><br><span class="line">tk[<span class="number">33</span>] = <span class="number">33</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tk[<span class="number">2</span>])</span><br></pre></td></tr></table></figure></li>
+<li>跟踪表的访问<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 表中唯一key</span></span><br><span class="line"><span class="keyword">local</span> index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> mt = &#123;&#125;</span><br><span class="line">mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span> <span class="params">(table, key)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"accessing"</span> .. key)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">table</span>[index][key];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">mt.<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">(table, key, value)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"updateing"</span>.. key .. <span class="string">"to"</span> .. value)</span><br><span class="line">    <span class="built_in">table</span>[index][key] = value</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span><span class="params">(tb)</span></span></span><br><span class="line">    <span class="keyword">local</span> proxy = &#123;&#125;</span><br><span class="line">    proxy[index] = tb;</span><br><span class="line">    <span class="built_in">setmetatable</span>(proxy, mt)</span><br><span class="line">    <span class="keyword">return</span> proxy;</span><br><span class="line"><span class="keyword">end</span>             </span><br><span class="line">          </span><br><span class="line">t = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">tk = track(t)</span><br><span class="line"><span class="built_in">print</span> (tk[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">tk[<span class="number">2</span>] = <span class="number">22</span></span><br><span class="line">tk[<span class="number">33</span>] = <span class="number">33</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tk[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
