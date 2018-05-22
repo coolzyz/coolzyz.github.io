@@ -229,6 +229,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/lua-beginner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coolzyz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Freedome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/22/lua-beginner/" itemprop="url">LUA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-22T18:50:06+09:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="lua关键字"><a href="#lua关键字" class="headerlink" title="lua关键字"></a>lua关键字</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">and</span> <span class="keyword">break</span> <span class="keyword">do</span> <span class="keyword">else</span> <span class="keyword">elseif</span> <span class="keyword">end</span> <span class="literal">false</span> <span class="keyword">for</span> <span class="function"><span class="keyword">function</span> <span class="title">if</span> <span class="title">in</span> <span class="title">local</span> <span class="title">nil</span> <span class="title">not</span> <span class="title">or</span> <span class="title">repeat</span> <span class="title">return</span> <span class="title">then</span> <span class="title">true</span> <span class="title">until</span> <span class="title">while</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>没有switch</p>
+</li>
+<li><p>lua 数组下标从1开始</p>
+</li>
+<li>取长度操作符，以nil为结束符号，下面例子中长度为0<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=&#123;&#125;</span><br><span class="line">a[<span class="number">100</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><ul>
+<li>lua中函数是第一类值</li>
+<li>if 判断中false或者nil为假，其余为真，包括0值</li>
+<li>对userdata,table,function 的比较，lua采用引用比较，只有引用相同，才认为相等(== ~=)</li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><ul>
+<li><p>赋值操作，先对表达式求值在运算</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x, y = y, x #交换xy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数多变量返回</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = f()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尽可能的使用局部变量</p>
+</li>
+<li>变量在需要使用的时候再声明，可以缩短生命周期，提高可读性</li>
+<li><p>for 循环</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var=<span class="built_in">exp</span>, endvalue, step <span class="keyword">do</span></span><br><span class="line">    xxx</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">step 默认为<span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>迭代table的pairs，迭代数组的ipairs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for k,v in ipairs(a) do</span><br><span class="line">    print (k, v)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">每次循环，k被赋予一个索引值，同时v被赋予索引对应值。ipairs返回数字索引直到nil，如下代码将不会输出任何东西</span><br><span class="line">a=&#123;x=&quot;10&quot;, y=&quot;101&quot;&#125;</span><br><span class="line">for k, v in ipairs(a) do</span><br><span class="line">    print (k, v)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>所有涉及到NaN的比较均为假</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &lt;= NaN --&gt;false</span><br><span class="line">NaN &lt; x --&gt;false</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li><p>函数调用需要括号，即使没有参数。例外:如果函数参数只有一个参数，并且该参数是一个字面字符串或者table构造式，括号可有可无</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dofile &apos;a.lua&apos; ==&gt; dofile(&apos;a.lua&apos;)</span><br><span class="line">f&#123;x=0,y=1&#125; ==&gt; f(&#123;x=0,y=1&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>return语句后面的内容不需要圆括号，否则可能导致不一致的行为</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (f()) 将只返回一个值，不管f实际返回几个，因为函数出现在表达式中，会调整返回值为<span class="number">1</span>个</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尾调用</p>
+<blockquote>
+<p>函数调用作为函数体的最后一条语句,避免压栈操作<br>不耗费栈空间，避免栈溢出<br>lua中只有”return <func>(arglist)”这样的调用形式才是尾调用</func></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">(n)</span></span></span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> n * f(n<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">不管n多大都不会溢出</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>pcall（protected call):lua中处理错误，用pcall包装需要执行的代码</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">if</span> (xx) <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">error</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">pcall</span>(foo) <span class="keyword">then</span></span><br><span class="line">// 无错误</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">// 处理错误</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>debug.traceback() 输出调用堆栈</p>
+</li>
+</ul>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><ul>
+<li>非抢占式的，只有主动yield才会转让执行权，无法从外部终止</li>
+</ul>
+<h2 id="元表与元方法"><a href="#元表与元方法" class="headerlink" title="元表与元方法"></a>元表与元方法</h2><ul>
+<li><p>一组相关的table共享一个元表，描述共同行为</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">算术元方法</span><br><span class="line"><span class="built_in">__add</span> <span class="built_in">__sub</span> <span class="built_in">__mul</span> <span class="built_in">__div</span> <span class="built_in">__mod</span> <span class="built_in">__pow</span></span><br><span class="line">关系元方法</span><br><span class="line"><span class="built_in">__le</span> <span class="built_in">__eq</span> <span class="built_in">__lt</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>index元方法：table查找字段时，如果不存在某个字段，就会在查找元表中的</strong>index方法，并用table可key作为参数调用<strong>index方法。如果</strong>index是一个table，就会在table里查找字段</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">child=&#123;x = <span class="number">10</span>, y= <span class="number">20</span>&#125;</span><br><span class="line">parent=&#123;width=<span class="number">100</span>, height=<span class="number">200</span>&#125;</span><br><span class="line">**<span class="built_in">setmetatable</span>(child, parent)**</span><br><span class="line">parent.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span> <span class="params">(table, key)</span></span></span><br><span class="line">    <span class="keyword">return</span> (<span class="string">"helloooo"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果不想在table访问中涉及__index可以使用rawget(table,key)方式</p>
+</li>
+<li><p><strong>newindex方法：用于table更新。如果对一个table中不存在的减值赋值将查找</strong>newindex方法，如果为__newindex是table，将更新此table，而不是原来的table</p>
+</li>
+<li>跟踪表的访问<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 表中唯一key</span></span><br><span class="line"><span class="keyword">local</span> index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> mt = &#123;&#125;</span><br><span class="line">mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span> <span class="params">(table, key)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"accessing"</span> .. key)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">table</span>[index][key];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">mt.<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">(table, key, value)</span></span></span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"updateing"</span>.. key .. <span class="string">"to"</span> .. value)</span><br><span class="line">    <span class="built_in">table</span>[index][key] = value</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span><span class="params">(tb)</span></span></span><br><span class="line">    <span class="keyword">local</span> proxy = &#123;&#125;</span><br><span class="line">    proxy[index] = tb;</span><br><span class="line">    <span class="built_in">setmetatable</span>(proxy, mt)</span><br><span class="line">    <span class="keyword">return</span> proxy;</span><br><span class="line"><span class="keyword">end</span>             </span><br><span class="line">          </span><br><span class="line">t = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">tk = track(t)</span><br><span class="line"><span class="built_in">print</span> (tk[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">tk[<span class="number">2</span>] = <span class="number">22</span></span><br><span class="line">tk[<span class="number">33</span>] = <span class="number">33</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tk[<span class="number">2</span>])</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/linux-command-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1360,133 +1549,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/30/对象池/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coolzyz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Freedome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/30/对象池/" itemprop="url">c++对象池模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-30T15:30:00+09:00">
-                2015-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>c++中内存是由开发者自己管理，当某个对象使用频率较高，反复进行内存的申请和释放会导致效率降低，所以内存操作频繁的对象采用对象池的方式是改进效率的一个重要方面。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/08/30/对象池/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1530,7 +1599,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1543,7 +1612,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
