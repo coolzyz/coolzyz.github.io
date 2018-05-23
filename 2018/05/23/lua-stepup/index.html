@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LUA 进阶标签（空格分隔）： lua 读书笔记  环境1lua -e &quot;for k,v in pairs(_G) do print(k,v) end&quot; | sort  lua全局环境变量保存在_G的table中,内容如下： 123456789101112131415161718192021222324252627282930313233343536373839assert  function:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Freedome">
+<meta property="og:url" content="http://yoursite.com/2018/05/23/lua-stepup/index.html">
+<meta property="og:site_name" content="Freedome">
+<meta property="og:description" content="LUA 进阶标签（空格分隔）： lua 读书笔记  环境1lua -e &quot;for k,v in pairs(_G) do print(k,v) end&quot; | sort  lua全局环境变量保存在_G的table中,内容如下： 123456789101112131415161718192021222324252627282930313233343536373839assert  function:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-23T07:12:48.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Freedome">
+<meta name="twitter:description" content="LUA 进阶标签（空格分隔）： lua 读书笔记  环境1lua -e &quot;for k,v in pairs(_G) do print(k,v) end&quot; | sort  lua全局环境变量保存在_G的table中,内容如下： 123456789101112131415161718192021222324252627282930313233343536373839assert  function:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/23/lua-stepup/"/>
+
+
+
+
+
+  <title> | Freedome</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Freedome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/lua-stepup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coolzyz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Freedome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T16:13:43+09:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="LUA-进阶"><a href="#LUA-进阶" class="headerlink" title="LUA 进阶"></a>LUA 进阶</h1><p>标签（空格分隔）： lua 读书笔记</p>
+<hr>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -e <span class="string">"for k,v in pairs(_G) do print(k,v) end"</span> | <span class="built_in">sort</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>lua全局环境变量保存在_G的table中,内容如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assert</span>  <span class="function"><span class="keyword">function</span>: 0<span class="title">x99f5b98</span></span></span><br><span class="line"><span class="function"><span class="title">collectgarbage</span>  <span class="title">function</span>: 0<span class="title">x99f5bd0</span></span></span><br><span class="line"><span class="function"><span class="title">coroutine</span>       <span class="title">table</span>: 0<span class="title">x99f6718</span></span></span><br><span class="line"><span class="function"><span class="title">debug</span>   <span class="title">table</span>: 0<span class="title">x99f97d0</span></span></span><br><span class="line"><span class="function"><span class="title">dofile</span>  <span class="title">function</span>: 0<span class="title">x99f5c88</span></span></span><br><span class="line"><span class="function"><span class="title">error</span>   <span class="title">function</span>: 0<span class="title">x99f5cc0</span></span></span><br><span class="line"><span class="function"><span class="title">gcinfo</span>  <span class="title">function</span>: 0<span class="title">x99f5c10</span></span></span><br><span class="line"><span class="function"><span class="title">getfenv</span> <span class="title">function</span>: 0<span class="title">x99f5c48</span></span></span><br><span class="line"><span class="function"><span class="title">getmetatable</span>    <span class="title">function</span>: 0<span class="title">x99f5de0</span></span></span><br><span class="line"><span class="function"><span class="title">_G</span>      <span class="title">table</span>: 0<span class="title">x99f5450</span></span></span><br><span class="line"><span class="function"><span class="title">io</span>      <span class="title">table</span>: 0<span class="title">x99f79e8</span></span></span><br><span class="line"><span class="function"><span class="title">ipairs</span>  <span class="title">function</span>: 0<span class="title">x99f59a0</span></span></span><br><span class="line"><span class="function"><span class="title">loadfile</span>        <span class="title">function</span>: 0<span class="title">x99f5e20</span></span></span><br><span class="line"><span class="function"><span class="title">load</span>    <span class="title">function</span>: 0<span class="title">x99f5cf8</span></span></span><br><span class="line"><span class="function"><span class="title">loadstring</span>      <span class="title">function</span>: 0<span class="title">x99f5d30</span></span></span><br><span class="line"><span class="function"><span class="title">math</span>    <span class="title">table</span>: 0<span class="title">x99f8dd0</span></span></span><br><span class="line"><span class="function"><span class="title">module</span>  <span class="title">function</span>: 0<span class="title">x99f6ce0</span></span></span><br><span class="line"><span class="function"><span class="title">newproxy</span>        <span class="title">function</span>: 0<span class="title">x99f66b0</span></span></span><br><span class="line"><span class="function"><span class="title">next</span>    <span class="title">function</span>: 0<span class="title">x99f5d68</span></span></span><br><span class="line"><span class="function"><span class="title">os</span>      <span class="title">table</span>: 0<span class="title">x99f81f0</span></span></span><br><span class="line"><span class="function"><span class="title">package</span> <span class="title">table</span>: 0<span class="title">x99f6a50</span></span></span><br><span class="line"><span class="function"><span class="title">pairs</span>   <span class="title">function</span>: 0<span class="title">x99f5a00</span></span></span><br><span class="line"><span class="function"><span class="title">pcall</span>   <span class="title">function</span>: 0<span class="title">x99f5da0</span></span></span><br><span class="line"><span class="function"><span class="title">print</span>   <span class="title">function</span>: 0<span class="title">x99f6020</span></span></span><br><span class="line"><span class="function"><span class="title">rawequal</span>        <span class="title">function</span>: 0<span class="title">x99f6058</span></span></span><br><span class="line"><span class="function"><span class="title">rawget</span>  <span class="title">function</span>: 0<span class="title">x99f6090</span></span></span><br><span class="line"><span class="function"><span class="title">rawset</span>  <span class="title">function</span>: 0<span class="title">x99f60c8</span></span></span><br><span class="line"><span class="function"><span class="title">require</span> <span class="title">function</span>: 0<span class="title">x99f6f88</span></span></span><br><span class="line"><span class="function"><span class="title">select</span>  <span class="title">function</span>: 0<span class="title">x99f5478</span></span></span><br><span class="line"><span class="function"><span class="title">setfenv</span> <span class="title">function</span>: 0<span class="title">x99f5e58</span></span></span><br><span class="line"><span class="function"><span class="title">setmetatable</span>    <span class="title">function</span>: 0<span class="title">x99f5e90</span></span></span><br><span class="line"><span class="function"><span class="title">string</span>  <span class="title">table</span>: 0<span class="title">x99f65b8</span></span></span><br><span class="line"><span class="function"><span class="title">table</span>   <span class="title">table</span>: 0<span class="title">x99f6828</span></span></span><br><span class="line"><span class="function"><span class="title">tonumber</span>        <span class="title">function</span>: 0<span class="title">x99f5ed0</span></span></span><br><span class="line"><span class="function"><span class="title">tostring</span>        <span class="title">function</span>: 0<span class="title">x99f5f08</span></span></span><br><span class="line"><span class="function"><span class="title">type</span>    <span class="title">function</span>: 0<span class="title">x99f5f40</span></span></span><br><span class="line"><span class="function"><span class="title">unpack</span>  <span class="title">function</span>: 0<span class="title">x99f5f78</span></span></span><br><span class="line"><span class="function"><span class="title">_VERSION</span>        <span class="title">Lua</span> 5.1</span></span><br><span class="line"><span class="function"><span class="title">xpcall</span>  <span class="title">function</span>: 0<span class="title">x99f5fb0</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>setfenv(set function environment)改变一个函数的环境，该环境参数是一个函数层级和一个table，函数层级1表示当前函数，2表示调用当前函数的函数，以此类推</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setfenv</span>(<span class="number">1</span>, &#123;g = <span class="built_in">_G</span>&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于函数继承创建其函数的环境，所以一个程序块改变了自己的环境，后续由它创建的函数都共享新环境</p>
+</li>
+</ul>
+<h2 id="模块和包"><a href="#模块和包" class="headerlink" title="模块和包"></a>模块和包</h2><h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><ul>
+<li>require采用一串路径模式，每个模式都包含一个可选的?, require用模块名替换?，来查找这个文件,如果不存在，将寻找下一项。假设路径为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?;?.lua;/usr/local/lib/?.lua?;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>执行require “sql”将尝试打开如下文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql</span><br><span class="line">sql.lua</span><br><span class="line">/usr/loca/lib/sql.lua</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>require 搜索路径在_G.package.path中定义，如果无法找到将寻找c库，路径在_G.package.cpath中定义</li>
+<li>如果模块没有返回值，require返回package.loaded[modename]的值 </li>
+</ul>
+<h3 id="module函数"><a href="#module函数" class="headerlink" title="module函数"></a>module函数</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module(..., <span class="built_in">package</span>.<span class="built_in">seeall</span>) 等价于如下代码:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">local modname = ...</span><br><span class="line">local M = &#123;&#125;</span><br><span class="line">_G[modename] = M</span><br><span class="line">package.loaded[modename] = M</span><br><span class="line">setmetatable(M, &#123;__index = _G&#125;)</span><br><span class="line">setfenv(1, M)</span><br></pre></td></tr></table></figure>
+<h3 id="子模块与包"><a href="#子模块与包" class="headerlink" title="子模块与包"></a>子模块与包</h3><p>lua支持层级模块，中间使用.分割。比如mod.sub就是sub的子模块，require搜索路径时将.转换为系统路径(/或)</p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><ul>
+<li><p>lua使用冒号(:)隐藏self参数，函数内仍可以通过self参数访问成员</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">table</span>.<span class="built_in">sub</span>(<span class="built_in">table</span>, <span class="number">10</span>) =&gt; <span class="built_in">table</span>:<span class="built_in">sub</span>(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env lua</span><br><span class="line"></span><br><span class="line">Account = &#123; balance = <span class="number">0</span>, withdraw = <span class="function"><span class="keyword">function</span><span class="params">(v)</span></span></span><br><span class="line">    self.balance = self.balance - v</span><br><span class="line"><span class="keyword">end</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br><span class="line">    self.balance = self.balance + v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:new</span><span class="params">(o)</span></span></span><br><span class="line">    o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">    <span class="built_in">setmetatable</span>(o, self)</span><br><span class="line">    self.<span class="built_in">__index</span> = self</span><br><span class="line">    <span class="keyword">return</span> o</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">a = Account:new()</span><br><span class="line"><span class="built_in">print</span> (a.balance)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/22/lua-beginner/" rel="next" title="LUA 基础">
+                <i class="fa fa-chevron-left"></i> LUA 基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coolzyz</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LUA-进阶"><span class="nav-number">1.</span> <span class="nav-text">LUA 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块和包"><span class="nav-number">1.2.</span> <span class="nav-text">模块和包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#require"><span class="nav-number">1.2.1.</span> <span class="nav-text">require</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">module函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模块与包"><span class="nav-number">1.2.3.</span> <span class="nav-text">子模块与包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coolzyz</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
