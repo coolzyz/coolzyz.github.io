@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Freedome">
 <meta property="og:description" content="LUA 进阶标签（空格分隔）： lua 读书笔记  环境1lua -e &quot;for k,v in pairs(_G) do print(k,v) end&quot; | sort  lua全局环境变量保存在_G的table中,内容如下： 123456789101112131415161718192021222324252627282930313233343536373839assert  function:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-23T07:20:35.740Z">
+<meta property="og:updated_time" content="2018-05-23T07:26:17.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Freedome">
 <meta name="twitter:description" content="LUA 进阶标签（空格分隔）： lua 读书笔记  环境1lua -e &quot;for k,v in pairs(_G) do print(k,v) end&quot; | sort  lua全局环境变量保存在_G的table中,内容如下： 123456789101112131415161718192021222324252627282930313233343536373839assert  function:">
@@ -313,7 +313,7 @@
 </li>
 </ul>
 <h2 id="模块和包"><a href="#模块和包" class="headerlink" title="模块和包"></a>模块和包</h2><h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><ul>
-<li>required调用返回一个模块函数组成的table，并且定义一个包含改table的全局变量</li>
+<li>require调用返回一个模块函数组成的table，并且定义一个包含改table的全局变量</li>
 <li><p>require采用一串路径模式，每个模式都包含一个可选的?, require用模块名替换?，来查找这个文件,如果不存在，将寻找下一项。假设路径为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?;?.lua;/usr/local/lib/?.lua?;</span><br><span class="line">执行require &quot;sql&quot;将尝试打开如下文件</span><br><span class="line">sql</span><br><span class="line">sql.lua</span><br><span class="line">/usr/loca/lib/sql.lua</span><br></pre></td></tr></table></figure>
 </li>

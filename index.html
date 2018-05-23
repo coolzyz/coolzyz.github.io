@@ -314,7 +314,7 @@
 </li>
 </ul>
 <h2 id="模块和包"><a href="#模块和包" class="headerlink" title="模块和包"></a>模块和包</h2><h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><ul>
-<li>required调用返回一个模块函数组成的table，并且定义一个包含改table的全局变量</li>
+<li>require调用返回一个模块函数组成的table，并且定义一个包含改table的全局变量</li>
 <li><p>require采用一串路径模式，每个模式都包含一个可选的?, require用模块名替换?，来查找这个文件,如果不存在，将寻找下一项。假设路径为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?;?.lua;/usr/local/lib/?.lua?;</span><br><span class="line">执行require &quot;sql&quot;将尝试打开如下文件</span><br><span class="line">sql</span><br><span class="line">sql.lua</span><br><span class="line">/usr/loca/lib/sql.lua</span><br></pre></td></tr></table></figure>
 </li>
