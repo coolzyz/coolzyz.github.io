@@ -323,9 +323,9 @@
 <li><p>不要在C函数之外调用在C函数内获取的指向字符串的指针（函数退出清理栈）</p>
 </li>
 </ul>
-<h3 id="C操作栈函数列表"><a href="#C操作栈函数列表" class="headerlink" title="C操作栈函数列表"></a>C操作栈函数列表</h3><ul>
-<li>待更新<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int lua_getglobal(L, const <span class="built_in">char</span> *name);//全局变量name值压栈,并返回该值类型</span><br><span class="line">int <span class="built_in">pcall</span>(L, int paramcount, int resultcount, int err_handler_stackindex);//先删除函数和参数，然后压入结果或者错误</span><br></pre></td></tr></table></figure>
-</li>
+<h3 id="C操作栈函数列表"><a href="#C操作栈函数列表" class="headerlink" title="C操作栈函数列表"></a>C操作栈函数列表</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int lua_getglobal(L, const <span class="built_in">char</span> *name);//全局变量name值压栈,并返回该值类型</span><br><span class="line">int <span class="built_in">pcall</span>(L, int paramcount, int resultcount, int err_handler_stackindex);//先删除函数和参数，然后压入结果或者错误</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://cloudwu.github.io/lua53doc/manual.html" target="_blank" rel="noopener">云风翻译的lua5.3手册</a></li>
 </ul>
 <h3 id="C调用lua函数"><a href="#C调用lua函数" class="headerlink" title="C调用lua函数"></a>C调用lua函数</h3><ul>
 <li>待调用函数入栈，并压入参数，然后使用pcall调用，最后将结果从栈中弹出。<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">luaf</span><span class="params">(x, y)</span></span></span><br><span class="line">    reutrn x + y</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
